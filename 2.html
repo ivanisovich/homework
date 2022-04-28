@@ -3,91 +3,112 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Homework 5</title>
+    <title>Homework</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css">
+    <link rel="stylesheet" href="./cart.css">
 </head>
 
 <body>
     <!--
-Обязательное задание.
+Дополнительное задание.
 
-Выполнить все задачи в теге script. Комментарии, в которых написаны задачи, не
-стирать, код с решением задачи пишем под комментарием.
+Дан макет сайта
+https://www.figma.com/file/SbfOi2i4S1pIs0G6uOLPCx/shop-(Copy)?node-id=73%3A140м 
+
+В нем представлены товары, добавленные в корзину 
+
+Вам необходимо создать объект cart  в котором будет 
+1. ссылка на картинку
+2. Название товара (MANGO  PEOPLE  T-SHIRT)
+3. цена (Price: $300 	) 
+4. цвет (Color: Red)
+5. Размер (Size: Xl	)
+6. Количество (Quantity:2)
+
+Отобразить на странице 2 товара добавленных в корзину
 -->
 
-    <p class="dropdown">Привет :)</p>
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Dropdown button
-        </button>
-        <div class="menu dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-    </div>
+    <div class="cart-wrapper">
 
+    </div>
     <script>
         "use strict";
 
-        /*
-        1. Ко всем элементам, имеющим класс "dropdown-item" добавить еще один класс
-        "super-dropdown", необходимо использовать методы forEach и querySelectorAll и
-        свойство classList у элементов.
-         */
-        
-        const dropdownItems = document.querySelectorAll(".dropdown-item")
+        const cart = [{
+            id: 1,
+            imgSrc: './images/featured-items_1.png',
+            name: 'MANGO  PEOPLE  T-SHIRT',
+            price: "$300",
+            color: "Color: Red",
+            size: "Size: Xl",
+            quantity: "2",
+        }, {
+            id: 2,
+            imgSrc: './images/featured-items_2.jpg',
+            name: 'MANGO  PEOPLE  T-SHIRT',
+            price: "$300",
+            color: "Color: Red",
+            size: "Size: Xl",
+            quantity: "2",
+        }]
 
-        dropdownItems.forEach((item) => {
-            item.classList.add("super-dropdown")
-        })
+        const cartWrapper = document.querySelector('.cart-wrapper');
 
-        /*
-        2. У элемента с классом btn необходимо убрать класс "btn-secondary", если он
-        присутствует у этого элемента, либо добавить, если такого класса у элемента
-        не было.
-         */
+        function createProduct(cartItem) {
+            const item = document.createElement("article")
+            item.className = "cart-item"
 
-        const btn = document.getElementsByClassName("btn")[0]
+            const image = document.createElement('img');
+            image.src = cartItem.imgSrc;
+            item.append(image);
 
-        btn.classList.contains("btn-secondary") ? btn.classList.remove("btn-secondary") : btn.classList.add("btn-secondary")
+            const itemInfo = document.createElement('div');
+            itemInfo.classList.add('cart-item__info');
+            item.append(itemInfo);
 
-        /*
-        3. Необходимо удалить класс "dropdown-menu" у элемента, у которого
-        присутствует класс "menu".
-         */
+            const itemHead = document.createElement('div');
+            itemHead.classList.add('cart-item__head');
+            itemInfo.append(itemHead);
 
-        document.getElementsByClassName("menu")[0].classList.remove("dropdown-menu")
+            const header = document.createElement("h1")
+            header.innerText = cartItem.name
+            itemHead.append(header)
 
-        /*
-        4. Используя метод insertAdjacentHTML добавьте после div'a с классом
-        "dropdown" следующую разметку:
-          <a href="#">link</a>
-         */
+            const priceWrapper = document.createElement("div")
 
-        document.getElementsByClassName("dropdown")[1].insertAdjacentHTML("afterend", '<a href="#">link</a>')
+            const price = document.createElement("p")
+            price.innerText = cartItem.price
+            price.className = "price"
 
-        /*
-        5. У элемента с id "dropdownMenuButton" замените id на "superDropdown".
-         */
+            priceWrapper.append(document.createElement("p").innerText = "Price:")
+            priceWrapper.append(price)
 
-        document.getElementById("dropdownMenuButton").id = "superDropdown"
+            const color = document.createElement("p")
+            color.innerText = cartItem.color
 
-        /*
-        6. Добавьте атрибут data-dd со значением 3 элементу у которого существует
-        атрибут "aria-labelledby" равный "dropdownMenuButton" используя dataset.
-         */
+            const size = document.createElement("p")
+            size.innerText = cartItem.size
 
-        document.querySelector("[aria-labelledby='dropdownMenuButton']").dataset.ariaLabelledby = 3
+            const quantityWrapper = document.createElement("div")
 
-        /*
-        7. Удалите атрибут type у элемента с классом "dropdown-toggle".
-         */
+            const quantity = document.createElement("p")
+            quantity.innerText = cartItem.quantity
+            quantity.className = "quantity"
 
-        document.getElementsByClassName("dropdown-toggle")[0].removeAttribute("type")
+            quantityWrapper.append(document.createElement("p").innerText = "Quantity:")
+            quantityWrapper.append(quantity)
 
+            itemInfo.append(priceWrapper)
+            itemInfo.append(color)
+            itemInfo.append(size)
+            itemInfo.append(quantityWrapper)
 
-        
+            return item;
+        }
+
+        cart.forEach(item => {
+            cartWrapper.append(createProduct(item));
+        });
     </script>
 </body>
 
