@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Homework</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css">
+    <link rel="stylesheet" href="./cart.css">
+</head>
+
+<body>
+    <!--
+Дополнительное задание.
+
+Дан макет сайта
+https://www.figma.com/file/SbfOi2i4S1pIs0G6uOLPCx/shop-(Copy)?node-id=73%3A140м 
+
+В нем представлены товары, добавленные в корзину 
+
+Вам необходимо создать объект cart  в котором будет 
+1. ссылка на картинку
+2. Название товара (MANGO  PEOPLE  T-SHIRT)
+3. цена (Price: $300 	) 
+4. цвет (Color: Red)
+5. Размер (Size: Xl	)
+6. Количество (Quantity:2)
+
+Отобразить на странице 2 товара добавленных в корзину
+-->
+
+    <div class="cart-wrapper">
+
+    </div>
+    <script>
+        "use strict";
+
+        const cart = [{
+            id: 1,
+            imgSrc: './images/featured-items_1.png',
+            name: 'MANGO  PEOPLE  T-SHIRT',
+            price: "$300",
+            color: "Color: Red",
+            size: "Size: Xl",
+            quantity: "2",
+        }, {
+            id: 2,
+            imgSrc: './images/featured-items_2.jpg',
+            name: 'MANGO  PEOPLE  T-SHIRT',
+            price: "$300",
+            color: "Color: Red",
+            size: "Size: Xl",
+            quantity: "2",
+        }]
+
+        const cartWrapper = document.querySelector('.cart-wrapper');
+
+        function createProduct(cartItem) {
+            const item = document.createElement("article")
+            item.className = "cart-item"
+
+            const image = document.createElement('img');
+            image.src = cartItem.imgSrc;
+            item.append(image);
+
+            const itemInfo = document.createElement('div');
+            itemInfo.classList.add('cart-item__info');
+            item.append(itemInfo);
+
+            const itemHead = document.createElement('div');
+            itemHead.classList.add('cart-item__head');
+            itemInfo.append(itemHead);
+
+            const header = document.createElement("h1")
+            header.innerText = cartItem.name
+            itemHead.append(header)
+
+            const priceWrapper = document.createElement("div")
+
+            const price = document.createElement("p")
+            price.innerText = cartItem.price
+            price.className = "price"
+
+            priceWrapper.append(document.createElement("p").innerText = "Price:")
+            priceWrapper.append(price)
+
+            const color = document.createElement("p")
+            color.innerText = cartItem.color
+
+            const size = document.createElement("p")
+            size.innerText = cartItem.size
+
+            const quantityWrapper = document.createElement("div")
+
+            const quantity = document.createElement("p")
+            quantity.innerText = cartItem.quantity
+            quantity.className = "quantity"
+
+            quantityWrapper.append(document.createElement("p").innerText = "Quantity:")
+            quantityWrapper.append(quantity)
+
+            itemInfo.append(priceWrapper)
+            itemInfo.append(color)
+            itemInfo.append(size)
+            itemInfo.append(quantityWrapper)
+
+            return item;
+        }
+
+        cart.forEach(item => {
+            cartWrapper.append(createProduct(item));
+        });
+    </script>
+</body>
+
+</html>
