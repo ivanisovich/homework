@@ -4,15 +4,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Homework</title>
-  <style>
-    .product {
-      width: 200px;
-      padding: 10px;
-      float: left;
-      margin-right: 30px;
-      box-shadow: 0 0 4px black;
-    }
-  </style>
 </head>
 
 <body>
@@ -22,79 +13,116 @@
 Выполнить все задачи в теге script. Комментарии, в которых написаны задачи, не
 стирать, код с решением задачи пишем под комментарием.
 -->
-  <div class="product">
-    <div class="productName">Товар 1</div>
-    <img src="https://picsum.photos/id/367/200/300" alt="">
-    <button class="button">В корзину</button>
-  </div>
-  <div class="product">
-    <div class="productName">Товар 2</div>
-    <img src="https://picsum.photos/id/425/200/300" alt="">
-    <button class="button">В корзину</button>
-  </div>
-  <div class="product">
-    <div class="productName">Товар 3</div>
-    <img src="https://picsum.photos/id/429/200/300" alt="">
-    <button class="button">В корзину</button>
-  </div>
+
+  <p class="super_element">Привет</p>
+
+  <img src="https://placeimg.com/50/50/animals" alt="">
+  <img src="https://placeimg.com/50/50/arch" alt="">
+  <img src="https://placeimg.com/50/50/nature" alt="">
+  <img src="https://placeimg.com/50/50/people" alt="">
+  <img src="https://placeimg.com/50/50/tech" alt="">
+  <img src="https://placeimg.com/50/50/tech/grayscale" alt="">
+  <img src="https://placeimg.com/50/50/tech/sepia" alt="">
+
+  <br>
+
+  <button>Кнопка</button>
+  <button class="super_element">Кнопка с классом btn</button>
+  <button>Кнопка</button>
+
+  <br>
+
+  <textarea></textarea>
+
+  <br>
+
+  <ul>
+    <li>
+      <button>Кнопка 1</button>
+    </li>
+    <li>
+      <button>Кнопка 2</button>
+    </li>
+    <li>
+      <button>Кнопка 3</button>
+    </li>
+    <li>
+      <button>Кнопка 4</button>
+    </li>
+  </ul>
 
   <script>
     "use strict";
 
     /*
-    1. Установите всем элементам с классом "productName" размер шрифта 24px.
-     */
+    1. Необходимо вывести сообщение в консоль "все теги прогрузились", когда все
+    теги будут созданы браузером.
+    */
 
-    document.querySelectorAll(".productName").forEach(item => {
-      item.style.fontSize = "24px"
-    })
+    window.addEventListener("onload", console.log("все теги прогрузились"))
 
-    /*
-    2. Установите всем элементам с классом "product" внешний отступ справа 50px.
-     */
-
-    document.querySelectorAll(".productName").forEach(item => {
-      item.style.marginRight = "50px"
-    })
 
     /*
-    3. При клике на кнопку "В корзину" название кнопки должно поменяться на
-    "Добавлено" и кнопка должна стать неактивной.
-     */
+    2. Необходимо вывести сообщение в консоль "страница загрузилась", когда все
+    ресурсы страницы будут загружены.
+    */
 
-    document.body.addEventListener('click', e => {
-      const button = e.target;
-      if (button.tagName !== "BUTTON") {
-        return;
+    window.addEventListener("load", console.log("страница загрузилась"))
+
+    /*
+    3. При клике на какой-либо тег на странице в консоль должно выводиться
+    сообщение наподобие:
+    Класс "super_element" присутствует в элементе "div".
+    сообщение должно определять присутствует или отсутствует класс "super_element"
+    у элемента, а также выводить в нижнем регистре верный тег в данной строке, по
+    которому был совершен клик.
+    Необходимо использовать делегирование.
+    */
+
+    document.addEventListener("click", e => {
+      if (e.target.classList.contains("super_element")) {
+        console.log("этот элемент имеет класс 'super_element'", `${"тег " + e.target.tagName}`)
+      } else {
+        console.log(`${"тег " + e.target.tagName}`)
       }
-      button.textContent = 'Добавлено';
-      button.disabled = true;
-    });
-
+    })
 
     /*
-    4. Создайте полную (глубокую) копию элемента с классом product, измените в
-    этой копии путь до картинки на:
-    https://picsum.photos/id/1080/200/300
-    Поставьте название товара в данной копии "Товар 4" и замените последний
-    отображенный товар на странице на созданную копию. У данной копии также
-    должен правильно работать код из 3-го задания.
+    4. Сделайте, чтобы при наведении на textarea в консоли появлялось сообщение:
+    "Вы навели на textarea."
      */
 
-    const productCopy = document.querySelector(".product").cloneNode(true)
-
-    productCopy.querySelector("img").src = "https://picsum.photos/id/1080/200/300"
-
-    productCopy.querySelector(".productName").textContent = "Товар 4"
-
-    document.querySelector('.product:last-of-type').replaceWith(productCopy)
+    document.addEventListener("mouseover", e => {
+      if (e.target.tagName == "TEXTAREA") {
+        console.log("Вы навели на textarea.")
+      }
+    })
 
     /*
-    5. По истечению 2 секунд с момента открытия страницы первый товар должен быть
-    удален из html.
+    5. Необходимо повесить событие клика на тег ul. В обработчике события в
+    консоль необходимо выводить текст, который записан внутри элемента кнопки,
+    по которой был произведен клик.
+    Если клик был не по кнопке, то ничего выводить не нужно.
+    Необходимо использовать делегирование.
      */
 
-    setTimeout(() => document.querySelector('.product').remove(), 2000);
+    document.querySelector("ul").addEventListener("click", e => {
+      console.log(e.target.innerText)
+    })
+
+    /*
+    6. Вопрос: Почему в console.log пишется сначала текст из 5 задания и только
+    потом выводится текст из 3 задания, если мы кликаем по кнопкам в ul?
+    Ответ необходимо написать здесь же, под этим комментарием, своими словами.
+    
+    Событие Клика по элементам ul "вспылвает" вверх к родителю и срабатывает сперва у кнопок.
+    */
+
+    /*
+    7. С помощью JS необходимо изменить цвет заднего фона каждого второго тега li.
+     */
+
+    document.querySelectorAll('li:nth-child(2n)').forEach(el => el.style.backgroundColor = 'grey');
 
   </script>
 </body>
